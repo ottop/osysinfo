@@ -1,0 +1,240 @@
+#!/usr/bin/env python3
+
+#Imports
+import fire
+import platform
+import distro
+from datetime import datetime
+import psutil
+import time
+
+#setting an alias for the uname thing
+uname=platform.uname()
+
+#Function tos cale bytes up to higher units like kb, mb, etc
+def get_size(bytes, suffix="B"):
+    limit = 1024
+    for unit in ["", "K", "M", "G", "T", "P"]:
+        if bytes < limit:
+            return f"{bytes:.2f}{unit}{suffix}"
+        bytes /= limit
+
+def system(option="full"):
+    """
+    Return general information about the system
+    :param option: Alternative options: st - System type, d - Distribution, h - Hostname, kv - Kernel version, kd - Kernel date, pr - Processor, pl - Platform, u - Uptime
+
+    """
+
+    print("\n"+"-"*7, "System")
+
+    if option=="full":
+        print(f"System type: {uname.system}")
+        print("Distribution: "+(distro.id()).capitalize(),distro.version())
+        print(f"Hostname: {uname.node}")
+        print(f"Kernel version: {uname.release}")
+        print(f"Kernel date: {uname.version}")
+        print(f"Processor: {uname.processor}")
+        print(f"Platform: {uname.machine}")
+        with open('/proc/uptime', 'r') as f:
+            ft = float(f.readline().split()[0])
+
+        ut=time.strftime("%H:%M:%S",time.gmtime(ft))
+        print("Uptime:",ut)
+
+    elif option=="st":
+        print(f"System type: {uname.system}")
+
+    elif option=="d":
+        print("Distribution: "+(distro.id()).capitalize(),distro.version())
+
+    elif option=="h":
+        print(f"Hostname: {uname.node}")
+
+    elif option=="kv":
+        print(f"Kernel version: {uname.release}")
+
+    elif option=="kd":
+        print(f"Kernel date: {uname.version}")
+
+    elif option=="pr":
+        print(f"Processor: {uname.processor}")
+
+    elif option=="pl":
+        print(f"Platform: {uname.machine}")
+
+    elif option=="u":
+        with open('/proc/uptime', 'r') as f:
+            st = float(f.readline().split()[0])
+        ut=time.strftime("%H:%M:%S",time.gmtime(st))
+        print("Uptime:",ut)
+
+
+def CPU(option="full"):
+    """
+    Return information about the CPU
+    :param option: Alternative options: c - Cores, max - Max. frequency, min - Min. frequency, cf - Current frequency 
+    """
+
+    print("\n"+"-"*7, "CPU")
+    cpufreq = psutil.cpu_freq()
+
+    if option=="full":
+        print("Cores:", psutil.cpu_count(logical=False),"cores ("+str(psutil.cpu_count(logical=True)),"threads)")
+        print(f"Max. frequency: {cpufreq.max:.2f}Mhz")
+        print(f"Min. frequency: {cpufreq.min:.2f}Mhz")
+        print(f"Current frequency: {cpufreq.current:.2f}Mhz")
+    
+    elif option=="c":
+        print("Cores:", psutil.cpu_count(logical=False),"cores ("+str(psutil.cpu_count(logical=True)),"threads)")
+    
+    elif option=="max":
+        print(f"Max. frequency: {cpufreq.max:.2f}Mhz")
+    
+    elif option=="min":
+        print(f"Min. frequency: {cpufreq.min:.2f}Mhz")
+    
+    elif option=="cf":
+        print(f"Current frequency: {cpufreq.current:.2f}Mhz")
+
+def memory(option="full"):
+    """
+    Return information about the memory
+    :param option: Alternative options: t - Total, a - Available, u - Used, p - Percentage
+    """
+    
+    print("\n"+"-"*7, "Memory")
+    mem = psutil.virtual_memory()
+    
+    if option=="full": 
+        print(f"Total: {get_size(mem.total)}")
+        print(f"Available: {get_size(mem.available)}")
+        print(f"Used: {get_size(mem.used)}")
+        print(f"Percentage: {mem.percent}%")
+
+    elif option=="t":
+        print(f"Total: {get_size(mem.total)}")
+    
+    elif option=="a":
+        print(f"Available: {get_size(mem.available)}")
+   
+    elif option=="u":
+        print(f"Used: {get_size(mem.used)}")
+   
+    elif option=="p":
+        print(f"Percentage: {mem.percent}%")
+
+def swap(option="full"):
+    """
+    Return information about the swap space
+    :param option: Alternative options: t - Total, f - Free, u - Used, p - Percentage
+    """
+   
+    print("\n"+"-"*7, "Swap")
+    swap = psutil.swap_memory()
+   
+    if option=="full":   
+        print(f"Total: {get_size(swap.total)}")
+        print(f"Free: {get_size(swap.free)}")
+        print(f"Used: {get_size(swap.used)}")
+        print(f"Percentage: {swap.percent}%")
+
+    elif option=="t":
+        print(f"Total: {get_size(swap.total)}")
+   
+    elif option=="f":
+        print(f"Free: {get_size(swap.free)}")
+   
+    elif option=="u":
+        print(f"Used: {get_size(swap.used)}")
+  
+    elif option=="p":
+        print(f"Percentage: {swap.percent}%")
+
+def network(option="full"):
+    """
+    Return information about the network
+    :param option: Alternative options: ip - IP address, n - Netmask, bip - Broadcast IP, ma - MAC address, mn - MAC netmask, bm - Broadcast MAC
+    """
+  
+    print("\n"+"-"*7, "Network")
+    if_addrs = psutil.net_if_addrs()
+  
+    if option=="full":       
+        for interface_name, interface_addresses in if_addrs.items():
+            print(f"Interface: {interface_name}")
+            for address in interface_addresses:
+          
+                if str(address.family) == 'AddressFamily.AF_INET':
+                    print(f"    IP address: {address.address}")
+                    print(f"    Netmask: {address.netmask}")
+                    print(f"    Broadcast IP: {address.broadcast}")
+                elif str(address.family) == 'AddressFamily.AF_PACKET':
+                    print(f"    MAC address: {address.address}")
+                    print(f"    MAC netmask: {address.netmask}")
+                    print(f"    Broadcast MAC: {address.broadcast}")
+
+
+    elif option=="ip":
+        for interface_name, interface_addresses in if_addrs.items():
+            print(f"Interface: {interface_name}")
+            for address in interface_addresses:         
+                if str(address.family) == 'AddressFamily.AF_INET':
+                    print(f"    IP address: {address.address}")
+  
+    elif option=="n":
+        for interface_name, interface_addresses in if_addrs.items():
+            print(f"Interface: {interface_name}")
+            for address in interface_addresses:         
+                if str(address.family) == 'AddressFamily.AF_INET':
+                    print(f"    Netmask: {address.netmask}")
+  
+    elif option=="bip":
+        for interface_name, interface_addresses in if_addrs.items():
+            print(f"Interface: {interface_name}")
+            for address in interface_addresses:          
+                if str(address.family) == 'AddressFamily.AF_INET':
+                    print(f"    Broadcast IP: {address.broadcast}")
+   
+    elif option=="ma":
+        for interface_name, interface_addresses in if_addrs.items():
+            print(f"Interface: {interface_name}")
+            for address in interface_addresses:
+                if str(address.family) == 'AddressFamily.AF_PACKET':
+                    print(f"    MAC address: {address.address}")
+  
+    elif option=="mn":
+        for interface_name, interface_addresses in if_addrs.items():
+            print(f"Interface: {interface_name}")
+            for address in interface_addresses:
+                if str(address.family) == 'AddressFamily.AF_PACKET':
+                    print(f"    MAC netmask: {address.netmask}")
+ 
+    elif option=="bm":
+        for interface_name, interface_addresses in if_addrs.items():
+            print(f"Interface: {interface_name}")
+            for address in interface_addresses:
+                if str(address.family) == 'AddressFamily.AF_PACKET':
+                    print(f"    Broadcast MAC: {address.broadcast}")
+
+def full():
+    """
+    Return information about everything
+    """
+    system()
+    CPU()
+    memory()
+    swap()
+    network()
+
+
+#Creating the cli stuff
+if __name__ == "__main__":
+    fire.Fire({
+        "-f": full,
+        "-sy": system,
+        "-c": CPU,
+        "-m": memory,
+        "-sw": swap,
+        "-n": network,
+    })
