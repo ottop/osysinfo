@@ -1,12 +1,14 @@
+# What is it?
 Osysinfo is a basic CLI tool to see your system details. 
 
 It utilizes flags to allow you to limit the information shown to you.
 
-
+# How does it work?
 The format of the command is as follows:
 
+```
 osysinfo -flag option
-
+```
 
 Here's a list of flags: 
 ```
@@ -43,26 +45,26 @@ Here are additional options to filter the previous categories further:
         Default: 'full'
         Alternative options: ip - IP address, n - Netmask, bip - Broadcast IP, ma - MAC address, mn - MAC netmask, bm - Broadcast MAC
 ```
-  
-Thus if you for example run "osysinfo -c c" (without the quotation marks obviously), it will output the following:
-
+# Examples
+Thus if you for example run ```osysinfo -c c```, it will output the following:
+```
 ------- CPU
 Cores: x cores (y threads)
-
+```
 where x refers to your number of cores and y to your number of threads.
 
 
-Simply running "osysinfo -c" wouĺd output:
-
+Simply running ```osysinfo -c``` wouĺd output:
+```
 ------- CPU
 Cores: 6 cores (6 threads)
 Max. frequency: 4600.00Mhz
 Min. frequency: 800.00Mhz
 Current frequency: 2721.57Mhz
-
+```
 where x and y are as before and a, b and c are the different ffrequency values.
 
-
+# Dependencies
 There are some dependencies for installing osysinfo. These are the following python modules:
 
 - fire
@@ -76,7 +78,7 @@ pip install fire
 pip install distro
 pip install psutil
 ```
-
+# Installation
 With the dependencies installed, to install osysinfo, simply download the source code and move the osysinfo file to /usr/local/bin/ and make it executable.
 
 As root, do the following:
