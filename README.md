@@ -64,6 +64,12 @@ Current frequency: cMhz
 ```
 where x and y are as before and a, b and c are the different frequency values.
 
+![Screenshot from 2021-05-10 22-17-39](https://user-images.githubusercontent.com/60475104/117725471-dc84fa80-b1ed-11eb-8a7c-0657b0e1fb54.png)
+![Screenshot from 2021-05-10 22-17-50](https://user-images.githubusercontent.com/60475104/117725489-e149ae80-b1ed-11eb-9d11-608ba28ea08c.png)
+![Screenshot from 2021-05-10 22-18-01](https://user-images.githubusercontent.com/60475104/117725495-e27adb80-b1ed-11eb-9d72-39e4492f3c08.png)
+![Screenshot from 2021-05-10 22-18-21](https://user-images.githubusercontent.com/60475104/117725498-e3137200-b1ed-11eb-9e65-845371b24401.png)
+
+
 # Dependencies
 There are some dependencies for installing osysinfo. These are the following python modules:
 
