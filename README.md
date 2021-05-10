@@ -57,10 +57,10 @@ where x refers to your number of cores and y to your number of threads.
 Simply running ```osysinfo -c``` wouĺd output:
 ```
 ------- CPU
-Cores: 6 cores (6 threads)
-Max. frequency: 4600.00Mhz
-Min. frequency: 800.00Mhz
-Current frequency: 2721.57Mhz
+Cores: x cores (y threads)
+Max. frequency: aMhz
+Min. frequency: bMhz
+Current frequency: cMhz
 ```
 where x and y are as before and a, b and c are the different ffrequency values.
 
