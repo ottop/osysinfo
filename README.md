@@ -9,7 +9,7 @@ osysinfo -flag option
 
 
 Here's a list of flags: 
-
+```
      -f
        Return information about everything
      -sy
@@ -22,8 +22,11 @@ Here's a list of flags:
        Return information about the swap space
      -n
        Return information about the network
+```
+       
        
 Here are additional options to filter the previous categories further:
+```
       -sy
         Default: 'full'
         Alternative options: st - System type, d - Distribution, h - Hostname, kv - Kernel version, kd - Kernel date, pr - Processor, pl - Platform, u - Uptime
@@ -39,7 +42,7 @@ Here are additional options to filter the previous categories further:
       n
         Default: 'full'
         Alternative options: ip - IP address, n - Netmask, bip - Broadcast IP, ma - MAC address, mn - MAC netmask, bm - Broadcast MAC
-  
+```
   
 Thus if you for example run "osysinfo -c c" (without the quotation marks obviously), it will output the following:
 
@@ -68,17 +71,18 @@ There are some dependencies for installing osysinfo. These are the following pyt
 
 To intall them, just run the following with pip installed (you may have to use pip3 instead of pip):
 
+```
 pip install fire
 pip install distro
 pip install psutil
-
+```
 
 With the dependencies installed, to install osysinfo, simply download the source code and move the osysinfo file to /usr/local/bin/ and make it executable.
 
 As root, do the following:
-
+```
 mv /path/to/osysinfo /usr/local/bin/
 chmod +x /usr/local/bin/osysinfo
-
+```
 
 Once that is done you should be able to run osysinfo with the flags mentioned previously and find the provided system details.
