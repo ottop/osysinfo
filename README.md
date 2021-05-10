@@ -62,7 +62,7 @@ Max. frequency: aMhz
 Min. frequency: bMhz
 Current frequency: cMhz
 ```
-where x and y are as before and a, b and c are the different ffrequency values.
+where x and y are as before and a, b and c are the different frequency values.
 
 # Dependencies
 There are some dependencies for installing osysinfo. These are the following python modules:
