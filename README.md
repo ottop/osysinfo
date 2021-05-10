@@ -27,7 +27,7 @@ Here's a list of flags:
 ```
        
        
-Here are additional options to filter the previous categories further:
+Here are the additional options to filter the previous categories further:
 ```
       -sy
         Default: 'full'
@@ -41,7 +41,7 @@ Here are additional options to filter the previous categories further:
       -sw
         Default: 'full'
         Alternative options: t - Total, f - Free, u - Used, p - Percentage
-      n
+      -n
         Default: 'full'
         Alternative options: ip - IP address, n - Netmask, bip - Broadcast IP, ma - MAC address, mn - MAC netmask, bm - Broadcast MAC
 ```
