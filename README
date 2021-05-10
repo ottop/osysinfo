@@ -69,7 +69,7 @@ There are some dependencies for installing osysinfo. These are the following pyt
 - distro
 - psutil
 
-To intall them, just run the following with pip installed (you may have to use pip3 instead of pip):
+To install them, just run the following with pip installed (you may have to use pip3 instead of pip):
 
 ```
 pip install fire
