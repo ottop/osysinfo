@@ -94,3 +94,5 @@ chmod +x /usr/local/bin/osysinfo
 ```
 
 Once that is done you should be able to run osysinfo with the flags mentioned previously and find the provided system details.
+
+There is also an AUR package for Arch (credit to bobolin for that): https://aur.archlinux.org/packages/osysinfo/
