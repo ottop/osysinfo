@@ -71,13 +71,13 @@ where x and y are as before and a, b and c are the different frequency values.
 
 
 # Dependencies
-There are some dependencies for installing osysinfo. These are the following python modules:
+There are some dependencies for installing osysinfo. These are the following python3 modules:
 
 - fire
 - distro
 - psutil
 
-To install them, just run the following with pip installed (you may have to use pip3 instead of pip):
+To install them, just run the following with pip installed (you may have to use pip3 instead of pip, make sure you are installing for python3):
 
 ```
 pip install fire
@@ -85,11 +85,13 @@ pip install distro
 pip install psutil
 ```
 # Installation
-With the dependencies installed, to install osysinfo, simply download the source code and move the osysinfo file to /usr/local/bin/ and make it executable.
+With the dependencies installed, to install osysinfo, simply download the source code and move the osysinfo file to /usr/bin/ and make it executable.
 
-As root, do the following:
+Do the following and use root where needed:
 ```
-mv /path/to/osysinfo /usr/local/bin/
+wget https://github.com/ottop/osysinfo/archive/refs/tags/1.0.tar.gz
+tar -czvf 1.0.tar.gz osysinfo-master
+mv osysinfo-master/osysinfo /usr/bin/
 chmod +x /usr/local/bin/osysinfo
 ```
 
