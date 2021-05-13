@@ -92,7 +92,7 @@ Do the following and use root where needed:
 wget https://github.com/ottop/osysinfo/archive/refs/tags/1.0.tar.gz
 tar -xzvf 1.0.tar.gz
 mv osysinfo-1.0/osysinfo /usr/bin/
-chmod +x /usr/local/bin/osysinfo
+chmod +x /usr/bin/osysinfo
 ```
 
 Once that is done you should be able to run osysinfo with the flags mentioned previously and find the provided system details.
