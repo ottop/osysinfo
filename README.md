@@ -94,9 +94,9 @@ With the dependencies installed, to install osysinfo, simply download the source
 
 Do the following and use root where needed:
 ```
-wget https://github.com/ottop/osysinfo/archive/refs/tags/1.0.tar.gz
-tar -xzvf 1.0.tar.gz
-mv osysinfo-1.0/osysinfo /usr/bin/
+wget https://github.com/ottop/osysinfo/archive/refs/tags/1.1.tar.gz
+tar -xzvf 1.1.tar.gz
+mv osysinfo-1.1/osysinfo /usr/bin/
 chmod +x /usr/bin/osysinfo
 ```
 
