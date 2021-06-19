@@ -13,17 +13,19 @@ osysinfo -flag option
 Here's a list of flags: 
 ```
      -f
-       Return information about everything
+       Return information about everything.
      -sy
-       Return general information about the system
+       Return general information about the system.
      -c
-       Return information about the CPU
+       Return information about the CPU.
      -m
-       Return information about the memory
+       Return information about the memory.
      -sw
-       Return information about the swap space
+       Return information about the swap space.
      -n
-       Return information about the network
+       Return information about the network.
+     -d 
+       Return information about the disk. Defaults to show all partitions. To only see one, just type in the partition (/, /home, etc) at the end of your command.
 ```
        
        
@@ -44,6 +46,9 @@ Here are the additional options to filter the previous categories further:
       -n
         Default: 'full'
         Alternative options: ip - IP address, n - Netmask, bip - Broadcast IP, ma - MAC address, mn - MAC netmask, bm - Broadcast MAC
+      -d
+        Default: 'full'
+        Alternative options: t - Total, f - Free, u - Used, p - Percentage
 ```
 # Examples
 Thus if you for example run ```osysinfo -c c```, it will output the following:
