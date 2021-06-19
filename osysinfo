@@ -99,18 +99,30 @@ def CPU(option="full"):
 
     if option=="full":
         print("Cores:", psutil.cpu_count(logical=False),"cores ("+str(psutil.cpu_count(logical=True)),"threads)")
-        print(f"Max. frequency: {cpufreq.max:.2f}Mhz")
-        print(f"Min. frequency: {cpufreq.min:.2f}Mhz")
+        maxfreq=cpufreq.max
+        minfreq=cpufreq.min
+        if maxfreq!=0:
+            print(f"Max. frequency: {maxfreq:.2f}Mhz")
+        if minfreq!=0:
+            print(f"Min. frequency: {minfreq:.2f}Mhz")
         print(f"Current frequency: {cpufreq.current:.2f}Mhz")
     
     elif option=="c":
         print("Cores:", psutil.cpu_count(logical=False),"cores ("+str(psutil.cpu_count(logical=True)),"threads)")
     
     elif option=="max":
-        print(f"Max. frequency: {cpufreq.max:.2f}Mhz")
+        maxfreq=cpufreq.max
+        if maxfreq!=0:
+            print(f"Max. frequency: {maxfreq:.2f}Mhz")
+        elif maxfreq==0:
+            print("Unable to determine the maximum CPU clock")
     
     elif option=="min":
-        print(f"Min. frequency: {cpufreq.min:.2f}Mhz")
+        minfreq=cpufreq.min
+        if minfreq!=0:
+            print(f"Min. frequency: {minfreq:.2f}Mhz")
+        elif minfreq==0:
+            print("Unable to determine the minimum CPU clock")
     
     elif option=="cf":
         print(f"Current frequency: {cpufreq.current:.2f}Mhz")
@@ -168,6 +180,104 @@ def swap(option="full"):
   
     elif option=="p":
         print(f"Percentage: {swap.percent}%")
+
+def disk(option="full", dir="all"):
+    """
+    Return information about the disk. Defaults to show all partitions. To only see one, just type in the partition (/, /home, etc) at the end of your command.
+    :param option: Alternative options: t - Total, f - Free, u - Used, p - Percentage
+    """
+
+    if option[0]=="/":
+        dir=option
+        option="full"
+
+    print("\n"+"-"*7, "Storage")
+   
+    if option=="full" and dir=="all": 
+        part=psutil.disk_partitions()
+        for a in part:
+            print("Partition:", a.mountpoint)
+            disk=psutil.disk_usage(a.mountpoint)
+            print(f"    Total: {get_size(disk.total)}")
+            print(f"    Free: {get_size(disk.free)}")
+            print(f"    Used: {get_size(disk.used)}")
+            print(f"    Percentage: {disk.percent}%")
+
+    elif option=="full":
+        try:
+            disk = psutil.disk_usage(dir)
+        except:
+            print("Please use a valid partition directory")
+            exit()
+        print("Partition:", dir)
+        print(f"    Total: {get_size(disk.total)}")
+        print(f"    Free: {get_size(disk.free)}")
+        print(f"    Used: {get_size(disk.used)}")
+        print(f"    Percentage: {disk.percent}%")
+    
+    if option=="t" and dir=="all":
+        part=psutil.disk_partitions()
+        for a in part:
+            print("Partition:", a.mountpoint)
+            disk=psutil.disk_usage(a.mountpoint)
+            print(f"    Total: {get_size(disk.total)}")
+
+    elif option=="t":
+        try:
+            disk = psutil.disk_usage(dir)
+        except:
+            print("Please use a valid partition directory")
+            exit()
+        print("Partition:", dir)
+        print(f"Total: {get_size(disk.total)}")
+   
+    if option=="f" and dir=="all":
+        part=psutil.disk_partitions()
+        for a in part:
+            print("Partition:", a.mountpoint)
+            disk=psutil.disk_usage(a.mountpoint)
+            print(f"Free: {get_size(disk.free)}")
+
+    elif option=="f":
+        try:
+            disk = psutil.disk_usage(dir)
+        except:
+            print("Please use a valid partition directory")
+            exit()
+        print("Partition:", dir)
+        print(f"Free: {get_size(disk.free)}")
+
+    if option=="u" and dir=="all":
+        part=psutil.disk_partitions()
+        for a in part:
+            print("Partition:", a.mountpoint)
+            disk=psutil.disk_usage(a.mountpoint)
+            print(f"Used: {get_size(disk.used)}")
+   
+    elif option=="u":
+        try:
+            disk = psutil.disk_usage(dir)
+        except:
+            print("Please use a valid partition directory")
+            exit()
+        print("Partition:", dir)
+        print(f"Used: {get_size(disk.used)}")
+  
+    if option=="p" and dir=="all":
+        part=psutil.disk_partitions()
+        for a in part:
+            print("Partition:", a.mountpoint)
+            disk=psutil.disk_usage(a.mountpoint)
+            print(f"    Percentage: {disk.percent}%")
+
+    elif option=="p":
+        try:
+            disk = psutil.disk_usage(dir)
+        except:
+            print("Please use a valid partition directory")
+            exit()
+        print("Partition:", dir)
+        print(f"Percentage: {disk.percent}%")
 
 def network(option="full"):
     """
@@ -235,14 +345,15 @@ def network(option="full"):
                 if str(address.family) == 'AddressFamily.AF_PACKET':
                     print(f"    Broadcast MAC: {address.broadcast}")
 
-def full():
+def full(dir="/"):
     """
-    Return information about everything
+    Return information about everything. 
     """
     system()
     CPU()
     memory()
     swap()
+    disk()
     network()
 
 
@@ -254,6 +365,7 @@ if __name__ == "__main__":
         "-c": CPU,
         "-m": memory,
         "-sw": swap,
+        "-d": disk,
         "-n": network,
     })
     
